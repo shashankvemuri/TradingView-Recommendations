@@ -8,4 +8,4 @@ def func():
     return render_template('app/template/home.html')
 
 if __name__ == "__main__":
-    app.run()
+    app.run(debug=True)
