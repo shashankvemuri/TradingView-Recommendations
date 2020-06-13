@@ -8,7 +8,7 @@ app = Flask(__name__)
 def home():
     return render_template('home.html')
 
-@app.route('/recommendation', methods=['POST'])
+@app.route('/', methods=['POST'])
 def func():
      ticker = request.form['ticker']
      interval = request.form['interval']
