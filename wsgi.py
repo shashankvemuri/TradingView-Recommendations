@@ -1,14 +1,11 @@
-from flask import Flask, request
+from flask import Flask, request, render_template
 import requests
-from app.main import get_signal
 
 app = Flask(__name__)
 
 @app.route('/', methods=['GET'])
 def func():
-    ticker = request.args['ticker']
-    interval = request.args['interval']
-    return get_signal(ticker, interval)
+    return render_template('app/template/home.html')
 
 if __name__ == "__main__":
     app.run()
