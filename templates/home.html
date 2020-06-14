@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <style>
 #wrap {
     position:absolute;
@@ -9,21 +10,26 @@
     left:0;
     text-align: center;
 }
+@media only screen and (min-width: 580px) {
+    #dir {
+    font-size: 80%;
+    }
+}
 </style>
 </head>
 <body style="background-color:powderblue;">
 <h2 style="text-align: center;">
     Enter any ticker symbol and an interval to get a recommendation!
 </h2>
-<p style="text-align: center;">
-    <br> <br>The intervals are as follows: <br> "1m" for 1 minute <br> "5m" for 5 minutes <br> "15m" for 15 minutes <br> "1h" for 1 hour <br> "4h" for 4 hours <br> "1D" for 1 day <br> "1W" for 1 week <br> "1M" for 1 month.
+<p id = #dir style="text-align: center;">
+    The intervals are as follows: <br> "1m" for 1 minute <br> "5m" for 5 minutes <br> "15m" for 15 minutes <br> "1h" for 1 hour <br> "4h" for 4 hours <br> "1D" for 1 day <br> "1W" for 1 week <br> "1M" for 1 month.
 </p>
 <div id="wrap">
-    <form action="/" method="get">
+    <form action="/" method="POST">
         <label for="ticker" style="font-size: 150%;">Ticker:</label><br>
-        <input type="text" id="ticker" name="ticker" placeholder="AAPL" style="min-height:22px;"><br><br>
+        <input type="text" id="ticker" name="ticker" placeholder="ex. AAPL" style="min-height:22px;"><br><br>
         <label for="interval" style="font-size: 150%;">Interval:</label><br>
-        <input type="text" id="interval" name="interval" placeholder="1M" style="min-height:22px;"><br><br>
+        <input type="text" id="interval" name="interval" placeholder="ex. 1M" style="min-height:22px;"><br><br>
         <input type="submit" value="Submit">
       </form>
 </div>

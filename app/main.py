@@ -30,7 +30,7 @@ webdriver = webdriver.Chrome(executable_path=os.environ.get("CHROMEDRIVER_PATH")
 
 # options = Options()
 # options.add_argument("--headless")
-# webdriver = webdriver.Chrome(executable_path='/Users/shashank/Documents/GitHub/StockRecommendations/chromedriver.exe', options=options)
+# webdriver = webdriver.Chrome(executable_path='/Users/shashank/Documents/GitHub/Code/Finance/chromedriver.exe', options=options)
 
 app = Flask(__name__)
 @app.route('/')
