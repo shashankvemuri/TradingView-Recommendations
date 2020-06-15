@@ -12,16 +12,16 @@ from yahoo_fin import stock_info as si
 GOOGLE_CHROME_PATH = '/app/.apt/usr/bin/google_chrome'
 CHROMEDRIVER_PATH = '/app/.chromedriver/bin/chromedriver'
 
-options = Options()
-options.binary_location = os.environ.get("GOOGLE_CHROME_BIN")
-options.add_argument("--headless")
-options.add_argument("--disable-dev-shm-usage")
-options.add_argument("--no-sandbox")
-webdriver = webdriver.Chrome(executable_path=os.environ.get("CHROMEDRIVER_PATH"), options=options)
-
 # options = Options()
+# options.binary_location = os.environ.get("GOOGLE_CHROME_BIN")
 # options.add_argument("--headless")
-# webdriver = webdriver.Chrome(executable_path='/Users/shashank/Documents/GitHub/Code/Finance/chromedriver.exe', options=options)
+# options.add_argument("--disable-dev-shm-usage")
+# options.add_argument("--no-sandbox")
+# webdriver = webdriver.Chrome(executable_path=os.environ.get("CHROMEDRIVER_PATH"), options=options)
+
+options = Options()
+options.add_argument("--headless")
+webdriver = webdriver.Chrome(executable_path='/Users/shashank/Documents/GitHub/Code/Finance/chromedriver.exe', options=options)
 
 app = Flask(__name__)
 @app.route('/')
@@ -61,8 +61,13 @@ def get_signal(ticker, interval):
         num_buy = last_analysis[3]
         line = '-'*60
 
-        company = yf.Ticker(ticker)
-        company_name = company.info['longName']
+        def get_symbol(symbol):
+            url = "http://d.yimg.com/autoc.finance.yahoo.com/autoc?query={}&region=1&lang=en".format(symbol)
+            result = requests.get(url).json()
+            for x in result['ResultSet']['Result']:
+                if x['symbol'] == symbol:
+                    return x['name']
+        company_name = get_symbol(ticker)
         current_price = round(si.get_live_price(ticker), 2)
 
         if interval == "1m":
@@ -82,11 +87,6 @@ def get_signal(ticker, interval):
         elif interval == "1M":
             long_interval = "1 month"
 
-        ticker = ticker.strip('"')
-        interval = interval.strip('"')
-        line = line.strip('"')
-        signal = signal.strip('"')
-
         ticker = json.dumps(ticker)
         interval = json.dumps(interval)
         signal = json.dumps(signal)
@@ -97,4 +97,4 @@ def get_signal(ticker, interval):
 
         return render_template('output.html', company_name = company_name, long_interval = long_interval, signal = signal, current_price = current_price, num_buy = num_buy, num_neutral = num_neutral, num_sell = num_sell)
     except Exception as e:
-        return f"{e} <br> Sorry, this ticker or interval is unavailable"
+        return f"{e} <br> Sorry, this ticker or interval is unavailable {line}"
