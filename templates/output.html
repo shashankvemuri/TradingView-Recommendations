@@ -20,14 +20,14 @@
     TradingView Data for {{ company_name }} for {{ long_interval }}!
 </h1>
 <div id="out">
-    {% if signal.lower() == "buy" %}
+    {% if signal == "Buy" %}
             Overall Signal: <b>{{ signal }}</b> <br>
             Current Price: <b>{{ current_price }}</b> <br>
             <hr style="width:50%">
             Number of Buy Indicators: <b>{{ num_buy }}</b> <br>
             Number of Neutral Indicators: <b>{{ num_neutral }}</b> <br>
             Number of Sell Indicators: <b>{{ num_sell }}</b> <br>
-    {% elif signal.lower() == "neutral" %}
+    {% elif signal == "Neutral" %}
             Overall Signal: <b>{{ signal }}</b> <br>
             Current Price: <b>{{ current_price }}</b> <br>
             <hr style="width:50%">

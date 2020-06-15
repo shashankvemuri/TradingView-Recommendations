@@ -66,10 +66,10 @@ def get_signal(ticker, interval):
             for x in result['ResultSet']['Result']:
                 if x['symbol'] == symbol:
                     return x['name']
-        company_name = get_symbol(ticker)
+        company_name = get_symbol(ticker.upper())
         current_price = round(si.get_live_price(ticker), 2)
 
-        if company_name == 'None':
+        if company_name.lower() == 'none':
             company_name = ticker
 
         if interval == "1m":
