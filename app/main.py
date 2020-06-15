@@ -69,6 +69,9 @@ def get_signal(ticker, interval):
         company_name = get_symbol(ticker)
         current_price = round(si.get_live_price(ticker), 2)
 
+        if company_name == 'None':
+            company_name = ticker
+
         if interval == "1m":
             long_interval = "1 minute"
         elif interval == "5m":
