@@ -4,24 +4,24 @@ import json
 from time import sleep
 from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
-from flask import Flask
+from flask import Flask, render_template
 import yfinance as yf
 import requests
 from yahoo_fin import stock_info as si
 
-GOOGLE_CHROME_PATH = '/app/.apt/usr/bin/google_chrome'
-CHROMEDRIVER_PATH = '/app/.chromedriver/bin/chromedriver'
-
-options = Options()
-options.binary_location = os.environ.get("GOOGLE_CHROME_BIN")
-options.add_argument("--headless")
-options.add_argument("--disable-dev-shm-usage")
-options.add_argument("--no-sandbox")
-webdriver = webdriver.Chrome(executable_path=os.environ.get("CHROMEDRIVER_PATH"), options=options)
+# GOOGLE_CHROME_PATH = '/app/.apt/usr/bin/google_chrome'
+# CHROMEDRIVER_PATH = '/app/.chromedriver/bin/chromedriver'
 
 # options = Options()
+# options.binary_location = os.environ.get("GOOGLE_CHROME_BIN")
 # options.add_argument("--headless")
-# webdriver = webdriver.Chrome(executable_path='/Users/shashank/Documents/GitHub/Code/Finance/chromedriver.exe', options=options)
+# options.add_argument("--disable-dev-shm-usage")
+# options.add_argument("--no-sandbox")
+# webdriver = webdriver.Chrome(executable_path=os.environ.get("CHROMEDRIVER_PATH"), options=options)
+
+options = Options()
+options.add_argument("--headless")
+webdriver = webdriver.Chrome(executable_path='/Users/shashank/Documents/GitHub/Code/Finance/chromedriver.exe', options=options)
 
 app = Flask(__name__)
 @app.route('/')
@@ -95,8 +95,6 @@ def get_signal(ticker, interval):
         num_buy = json.dumps(num_buy)
         line = json.dumps(line)
 
-        value = f'TradingView Data for {company_name} for {long_interval}: ' + '<br/>' + line + '<br/>' + f'Overall Signal: <b>{signal}</b>' + '<br/>' + f'Current Price: <b>{current_price}</b>' + '<br/>' + f'Number of Buy Indicators: <b>{num_buy}</b>' + '<br/>' + f'Number of Neutral Indicators: <b>{num_neutral}</b>' + '<br/>' + f'Number of Sell Indicators: <b>{num_sell}</b>'
-
-        return value
+        return render_template('output.html', company_name = company_name, long_interval = long_interval, signal = signal, current_price = current_price, num_buy = num_buy, num_neutral = num_neutral, num_sell = num_sell)
     except Exception as e:
         return f"{e} <br> Sorry, this ticker or interval is unavailable"
