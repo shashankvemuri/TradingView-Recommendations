@@ -9,19 +9,19 @@ import yfinance as yf
 import requests
 from yahoo_fin import stock_info as si
 
-# GOOGLE_CHROME_PATH = '/app/.apt/usr/bin/google_chrome'
-# CHROMEDRIVER_PATH = '/app/.chromedriver/bin/chromedriver'
-
-# options = Options()
-# options.binary_location = os.environ.get("GOOGLE_CHROME_BIN")
-# options.add_argument("--headless")
-# options.add_argument("--disable-dev-shm-usage")
-# options.add_argument("--no-sandbox")
-# webdriver = webdriver.Chrome(executable_path=os.environ.get("CHROMEDRIVER_PATH"), options=options)
+GOOGLE_CHROME_PATH = '/app/.apt/usr/bin/google_chrome'
+CHROMEDRIVER_PATH = '/app/.chromedriver/bin/chromedriver'
 
 options = Options()
+options.binary_location = os.environ.get("GOOGLE_CHROME_BIN")
 options.add_argument("--headless")
-webdriver = webdriver.Chrome(executable_path='/Users/shashank/Documents/GitHub/Code/Finance/chromedriver.exe', options=options)
+options.add_argument("--disable-dev-shm-usage")
+options.add_argument("--no-sandbox")
+webdriver = webdriver.Chrome(executable_path=os.environ.get("CHROMEDRIVER_PATH"), options=options)
+
+# options = Options()
+# options.add_argument("--headless")
+# webdriver = webdriver.Chrome(executable_path='/Users/shashank/Documents/GitHub/Code/Finance/chromedriver.exe', options=options)
 
 app = Flask(__name__)
 @app.route('/')
