@@ -8,8 +8,10 @@ verify_ssl = true
 [packages]
 flask = "*"
 gunicorn = "*"
-requests = "*"
 selenium = "*"
+requests = "*"
+yfinance = "*"
+yahoo-fin = "*"
 
 [requires]
 python_version = "3.7"
