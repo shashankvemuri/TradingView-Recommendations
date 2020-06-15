@@ -5,9 +5,6 @@ from time import sleep
 from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
 from flask import Flask
-import yfinance as yf
-import requests
-from yahoo_fin import stock_info as si
 
 '''
 Intervals:
@@ -71,28 +68,7 @@ def get_signal(ticker, interval):
         num_sell = last_analysis[1]
         num_neutral = last_analysis[2]
         num_buy = last_analysis[3]
-        line = '-'*60
-
-        company = yf.Ticker(ticker)
-        company_name = company.info['longName']
-        current_price = round(si.get_live_price(ticker), 2)
-
-        if interval == "1m":
-            long_interval = "1 minute"
-        elif interval == "5m":
-            long_interval = "5 minutes"
-        elif interval == "15m":
-            long_interval = "15 minutes"
-        elif interval == "1h":
-            long_interval = "1 hour"
-        elif interval == "4h":
-            long_interval = "4 hours"
-        elif interval == "1D":
-            long_interval = "1 day"
-        elif interval == "1W":
-            long_interval = "1 week"
-        elif interval == "1M":
-            long_interval = "1 month"
+        line = '-'*50
 
         ticker = ticker.strip('"')
         interval = interval.strip('"')
@@ -107,8 +83,7 @@ def get_signal(ticker, interval):
         num_buy = json.dumps(num_buy)
         line = json.dumps(line)
 
-        value = f'TradingView Data for {company_name} for {long_interval}: ' + '<br/>' + line + '<br/>' + f'Overall Signal: <b>{signal}</b>' + '<br/>' + f'Current Price: <b>{current_price}</b>' + '<br/>' + f'Number of Buy Indicators: <b>{num_buy}</b>' + '<br/>' + f'Number of Neutral Indicators: <b>{num_neutral}</b>' + '<br/>' + f'Number of Sell Indicators: <b>{num_sell}</b>'
-
+        value = f'TradingView Data for {ticker} for {interval}: ' + '<br/>' + line + '<br/>' + f'Overall Signal: {signal}' + '<br/>' + f'Number of Sell Indicators: {num_sell}' + '<br/>' + f'Number of Neutral Indicators: {num_neutral}' + '<br/>' + f'Number of Buy Indicators: {num_buy}'
         return value
     except:
         return "Sorry, this ticker or interval is unavailable"
