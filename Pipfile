@@ -11,6 +11,7 @@ gunicorn = "*"
 selenium = "*"
 requests = "*"
 yfinance = "*"
+lxml = "*"
 yahoo-fin = "*"
 
 [requires]

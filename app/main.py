@@ -6,8 +6,8 @@ from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
 from flask import Flask
 import yfinance as yf
-# import requests
-# from yahoo_fin import stock_info as si
+import requests
+from yahoo_fin import stock_info as si
 
 GOOGLE_CHROME_PATH = '/app/.apt/usr/bin/google_chrome'
 CHROMEDRIVER_PATH = '/app/.chromedriver/bin/chromedriver'
@@ -63,7 +63,7 @@ def get_signal(ticker, interval):
 
         company = yf.Ticker(ticker)
         company_name = company.info['longName']
-        #current_price = round(si.get_live_price(ticker), 2)
+        current_price = round(si.get_live_price(ticker), 2)
 
         if interval == "1m":
             long_interval = "1 minute"
@@ -95,9 +95,8 @@ def get_signal(ticker, interval):
         num_buy = json.dumps(num_buy)
         line = json.dumps(line)
 
-        #value = f'TradingView Data for {company_name} for {long_interval}: ' + '<br/>' + line + '<br/>' + f'Overall Signal: <b>{signal}</b>' + '<br/>' + f'Current Price: <b>{current_price}</b>' + '<br/>' + f'Number of Buy Indicators: <b>{num_buy}</b>' + '<br/>' + f'Number of Neutral Indicators: <b>{num_neutral}</b>' + '<br/>' + f'Number of Sell Indicators: <b>{num_sell}</b>'
-        value = f'TradingView Data for {company_name} for {long_interval}: ' + '<br/>' + line + '<br/>' + f'Overall Signal: <b>{signal}</b>' + '<br/>' + f'Number of Buy Indicators: <b>{num_buy}</b>' + '<br/>' + f'Number of Neutral Indicators: <b>{num_neutral}</b>' + '<br/>' + f'Number of Sell Indicators: <b>{num_sell}</b>'
-        
+        value = f'TradingView Data for {company_name} for {long_interval}: ' + '<br/>' + line + '<br/>' + f'Overall Signal: <b>{signal}</b>' + '<br/>' + f'Current Price: <b>{current_price}</b>' + '<br/>' + f'Number of Buy Indicators: <b>{num_buy}</b>' + '<br/>' + f'Number of Neutral Indicators: <b>{num_neutral}</b>' + '<br/>' + f'Number of Sell Indicators: <b>{num_sell}</b>'
+
         return value
     except Exception as e:
         return f"{e} <br> Sorry, this ticker or interval is unavailable"
