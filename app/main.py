@@ -26,6 +26,8 @@ app = Flask(__name__)
 @app.route('/')
 def get_signal(ticker, interval):
     try:
+        ticker = ticker.strip()
+        interval = interval.strip()
         #Declare variable
         analysis = []
 
